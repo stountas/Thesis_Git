@@ -1,0 +1,75 @@
+# ---------------------------------------------------------------------------
+# Generated artefacts: everything here is reproducible from the raw dataset.
+# The folders are kept (via .gitkeep), their contents are not.
+# ---------------------------------------------------------------------------
+data/*
+!data/.gitkeep
+models/*
+!models/.gitkeep
+results/*
+!results/.gitkeep
+
+# COMSOL and MATLAB exports, wherever they land
+*.mph
+*.mph.recovery*
+cluster_dpOnt_*.txt
+AGGREGATED_OPTIMIZED_SEQUENCE_*.txt
+all_clusters_COMBINED_MASTER*.txt
+
+# Trained weights, Optuna studies, cached objects
+*.pt
+*.pth
+*.ckpt
+*.db
+*.sqlite
+*.sqlite3
+*.pkl
+*.joblib
+
+# ---------------------------------------------------------------------------
+# Python
+# ---------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.ipynb_checkpoints/
+.pytest_cache/
+.mypy_cache/
+.venv/
+venv/
+env/
+
+# ---------------------------------------------------------------------------
+# MATLAB
+# ---------------------------------------------------------------------------
+*.asv
+*.m~
+*.mat
+*.mex*
+*.slxc
+slprj/
+
+# ---------------------------------------------------------------------------
+# LaTeX (if the thesis source is ever added here)
+# ---------------------------------------------------------------------------
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.lof
+*.lot
+*.out
+*.synctex.gz
+*.toc
+
+# ---------------------------------------------------------------------------
+# OS / editors
+# ---------------------------------------------------------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/

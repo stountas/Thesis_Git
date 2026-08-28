@@ -1,0 +1,21 @@
+# Normalise line endings on commit; check out native on each platform.
+* text=auto
+
+*.py   text
+*.m    text
+*.md   text
+*.txt  text
+*.csv  text
+*.ps1  text eol=crlf
+*.bat  text eol=crlf
+*.sh   text eol=lf
+
+*.pt   binary
+*.pth  binary
+*.db   binary
+*.mph  binary
+*.mat  binary
+*.png  binary
+*.jpg  binary
+*.pdf  binary
+*.xlsx binary

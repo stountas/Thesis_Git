@@ -153,7 +153,7 @@ python experiments\00_export_data_splits.py
 Every training script skips work whose output files already exist, so an interrupted run can simply be
 restarted. Parallelism is a `ProcessPoolExecutor` with 6 workers and `torch.set_num_threads(1)` inside
 each worker; adjust `max_workers` / `NUM_CORES` to your machine.
-
+The COMSOL model and the LiveLink automation that executes the sequenced runs and exports the etch-rate profiles are not part of this repository.
 ---
 
 ## Naming conventions

@@ -91,7 +91,7 @@ Thesis_Git/
 └── results/                           # git-ignored — metrics, Optuna DBs, figures
 ```
 
-`data/`, `models/` and `results/` are excluded from version control; everything in them is reproducible
+`results/` are excluded from version control; everything in them is reproducible
 from the raw dataset by re-running the pipeline.
 
 ---

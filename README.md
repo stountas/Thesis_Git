@@ -192,7 +192,7 @@ selection follows the violation rate first and error metrics as the tie-break.
 ## Citation
 
 ```bibtex
-@mastersthesis{tountas2026plasma,
+@thesis{tountas2026plasma,
   author = {Tountas, Stamatios},
   title  = {Development of Plasma Reactor Models Combining First-Principles and Machine Learning Techniques},
   school = {National Technical University of Athens},

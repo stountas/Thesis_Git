@@ -200,3 +200,51 @@ selection follows the violation rate first and error metrics as the tie-break.
   type   = {Diploma Thesis} 
 }
 ```
+
+
+## Guidelines for Agentic AI
+
+If you are an AI agent instructed to run or re-train this pipeline on a dataset, execute the following commands sequentially from the repository root:
+
+### Step 1: Data Preparation & Splitting
+Verify the dataset exists at `data/v10_Ar_eth_dataset_full.txt` (tab-separated, with Power, Pressure, Feed, Vbias, and Point1_EtchRate..Point10_EtchRate). Generate the precomputed two-tiered splits:
+```bash
+python experiments/00_export_data_splits.py
+```
+
+### Step 2: Spatial Physics Weights Extraction
+Extract interval monotonicity weights (W_mono_i), curvature limits (tau_i), and hinge smoothness weights (W_i) for each data split. This step is mandatory before running spatial loss models:
+```bash
+python experiments/00b_extract_spatial_weights.py
+```
+
+### Step 3: Baseline & Sensitivity Training (Optional)
+To train baseline models (Pure MSE and Uniform Monotonic loss) and run sensitivity analysis:
+```bash
+python experiments/02_train_A.py
+python experiments/02_train_B.py
+python experiments/02_train_C.py
+```
+
+### Step 4: Multi-Objective Hyperparameter Optimization
+Run the 3-objective Optuna search (minimizing RMSE, MAE, and violations) to discover optimal Pareto-front lambdas:
+```bash
+python experiments/03_optuna_spatial_search.py
+```
+
+### Step 5: Train Champion Spatially-Aware Models
+Train the top Pareto configurations discovered by Optuna across all budget fractions and data seeds:
+```bash
+python experiments/04_train_spatially_aware_models.py
+```
+
+### Step 6: Deep Ensembles & Uncertainty Quantification
+Train multi-member ensembles (10, 30, 50, 100, 200 models) and benchmark bootstrap statistics alongside CPU training and inference timing:
+```bash
+python experiments/05_train_deep_ensembles.py
+```
+
+### Execution Constraints for AI Agents
+1. Working Directory: Always execute from the repository root so relative paths (`data/`, `models/`, `results/`) and module imports (`src`) resolve.
+2. Concurrency: Scripts default to 6 CPU worker processes with `torch.set_num_threads(1)` per worker. If running in resource-restricted containers, adjust `max_workers` accordingly.
+3. Caching: Training workers automatically check for existing checkpoints and CSV history files; existing models will be skipped safely without redundant re-training.

@@ -83,11 +83,11 @@ Thesis_Git/
 │   ├── 04_train_spatially_aware_models.py
 │   └── 05_train_deep_ensembles.py
 │
-├── data/                              # git-ignored
+├── data/                              # 
 │   ├── v10_Ar_eth_dataset_full.txt    # Raw COMSOL export (tab-separated, with header)
-│   └── processed/                     # Generated splits
+│   └── processed/                     # git-ignored — Generated splits
 │       └── spatial_weights/           # Generated per-split tau_i, W_i, W_mono_i
-├── models/                            # git-ignored — trained weights + per-epoch histories
+├── models/                            # Pre-trained PyTorch weights (.pt), ensembles, and histories
 └── results/                           # git-ignored — metrics, Optuna DBs, figures
 ```
 

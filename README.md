@@ -201,6 +201,10 @@ selection follows the violation rate first and error metrics as the tie-break.
 }
 ```
 
+## Disclaimer
+
+This code was written for a Diploma Thesis at NTUA and is provided as is, for academic use and reproducibility (see `LICENSE`). The surrogate models are trained on COMSOL simulations, not experimental data, and are valid only within the operating window described in the Data format section. They have not been validated on a physical reactor. The training scripts start parallel workers (6 by default), so adjust `max_workers` / `NUM_CORES` to your machine.
+
 
 ## Guidelines for Agentic AI
 

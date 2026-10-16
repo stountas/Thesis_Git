@@ -239,7 +239,7 @@ python experiments/04_train_spatially_aware_models.py
 ```
 
 ### Step 6: Deep Ensembles & Uncertainty Quantification
-Train multi-member ensembles (10, 30, 50, 100, 200 models) and benchmark bootstrap statistics alongside CPU training and inference timing:
+Train multi-member Deep Ensembles (10, 30, 50, 100, 200 models) and benchmark ensemble scaling alongside CPU training and inference timing.:
 ```bash
 python experiments/05_train_deep_ensembles.py
 ```

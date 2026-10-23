@@ -3,6 +3,7 @@
 ![Python](https://img.shields.io/badge/Python-3.9%2B-blue)
 ![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?logo=pytorch&logoColor=white)
 ![Optuna](https://img.shields.io/badge/Optuna-Multi--objective-9cf)
+![SHAP](https://img.shields.io/badge/SHAP-Explainable%20AI-4cc61e)
 ![MATLAB](https://img.shields.io/badge/MATLAB-DoE%20%26%20Sequencing-orange)
 ![COMSOL](https://img.shields.io/badge/COMSOL-Multiphysics-blue)
 
@@ -54,6 +55,10 @@ physical units after unscaling.
 operating window the surrogate never saw, with bootstrap resampling of members for error bars on the
 scaling curves.
 
+**5 · Explainable AI (SHAP).**
+Feature importance is quantified using SHAP (SHapley Additive exPlanations) via `GradientExplainer`. The 
+impact of the 4 inputs on radial uniformity is mapped across all data budgets (draft code).
+
 ---
 
 ## Repository layout
@@ -81,7 +86,8 @@ Thesis_Git/
 │   ├── 02_train_C.py
 │   ├── 03_optuna_spatial_search.py
 │   ├── 04_train_spatially_aware_models.py
-│   └── 05_train_deep_ensembles.py
+│   ├── 05_train_deep_ensembles.py
+│   └── 06_generate_shap_plots.py      # Parallel SHAP beeswarm plot generation
 │
 ├── data/                              # 
 │   ├── v10_Ar_eth_dataset_full.txt    # Raw COMSOL export (tab-separated, with header)
@@ -89,6 +95,7 @@ Thesis_Git/
 │       └── spatial_weights/           # Generated per-split tau_i, W_i, W_mono_i
 ├── models/                            # Pre-trained PyTorch weights (.pt), ensembles, and histories
 └── results/                           # git-ignored — metrics, Optuna DBs, figures
+    └── analysis/                      # Output directory for SHAP beeswarm plots
 ```
 
 `results/` are excluded from version control; everything in them is reproducible
@@ -149,6 +156,7 @@ python experiments\00_export_data_splits.py
 | 9 | `03_optuna_spatial_search.py` | 3-objective TPE search (RMSE, MAE, violation rate) over the three lambdas, 50 trials per budget, stored in SQLite |
 | 10 | `04_train_spatially_aware_models.py` | Retrains the top Pareto trials — zero-violation first, then lowest RMSE — across all 10 seeds |
 | 11 | `05_train_deep_ensembles.py` | Trains up to 200 members per budget and analyses ensemble size vs accuracy, calibration and cost |
+| 12 | `06_generate_shap_plots.py` | Evaluates the Optuna optimal models using SHAP `GradientExplainer` to generate parallel beeswarm plots of feature importances across all budgets |
 
 Every training script skips work whose output files already exist, so an interrupted run can simply be
 restarted. Parallelism is a `ProcessPoolExecutor` with 6 workers and `torch.set_num_threads(1)` inside
@@ -247,6 +255,10 @@ Train multi-member Deep Ensembles (10, 30, 50, 100, 200 models) and benchmark en
 ```bash
 python experiments/05_train_deep_ensembles.py
 ```
+### Step 7: Feature Importance Analysis (SHAP)
+Evaluate the feature importance and marginal effects of the optimal spatially-aware models. This script generates beeswarm plots mapping non-linear process dynamics across data budgets:
+```bash
+python experiments/06_generate_shap_plots.py
 
 ### Execution Constraints for AI Agents
 1. Working Directory: Always execute from the repository root so relative paths (`data/`, `models/`, `results/`) and module imports (`src`) resolve.

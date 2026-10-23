@@ -259,6 +259,7 @@ python experiments/05_train_deep_ensembles.py
 Evaluate the feature importance and marginal effects of the optimal spatially-aware models. This script generates beeswarm plots mapping non-linear process dynamics across data budgets:
 ```bash
 python experiments/06_generate_shap_plots.py
+```
 
 ### Execution Constraints for AI Agents
 1. Working Directory: Always execute from the repository root so relative paths (`data/`, `models/`, `results/`) and module imports (`src`) resolve.
